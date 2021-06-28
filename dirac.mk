@@ -1,7 +1,7 @@
 PRODUCT_SOONG_NAMESPACES += \
-    vendor/xiaomi/dirac
+    vendor/dirac
 
-VENDOR_PATH := vendor/xiaomi/dirac
+VENDOR_PATH := vendor/dirac
 
 PRODUCT_COPY_FILES += \
     $(VENDOR_PATH)/vendor/lib/libDiracAPI_SHARED.so:$(TARGET_COPY_OUT_VENDOR)/lib/libDiracAPI_SHARED.so \

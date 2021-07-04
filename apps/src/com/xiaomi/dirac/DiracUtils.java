@@ -18,7 +18,6 @@ package com.xiaomi.dirac;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.UserHandle;
 import android.os.SystemClock;
@@ -26,7 +25,6 @@ import android.view.KeyEvent;
 import android.media.session.MediaController;
 import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
-import androidx.preference.PreferenceManager;
 import java.lang.IllegalArgumentException;
 import java.util.List;
 
@@ -37,8 +35,6 @@ public final class DiracUtils {
     private MediaSessionManager mMediaSessionManager;
     private Handler mHandler = new Handler();
     private Context mContext;
-    
-    private static final String PREF_SETUP_FINISHED = "diracSetupFinishedPref";
 
     public static DiracUtils getInstance() {
         if (mInstance == null) {
@@ -54,14 +50,7 @@ public final class DiracUtils {
     }
 
     public void onBootCompleted() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        if (sp.getBoolean(PREF_SETUP_FINISHED, false)) {
-            setEnabled(mDiracSound.getMusic() == 1);
-        } else {
-            // Enable Dirac when boot up first time
-            setEnabled(true);
-            sp.edit().putBoolean(PREF_SETUP_FINISHED, true).apply();
-        }
+        setEnabled(mDiracSound.getMusic() == 1);
         mDiracSound.setHeadsetType(mDiracSound.getHeadsetType());
         setLevel(getLevel());
         mInstance = this;
